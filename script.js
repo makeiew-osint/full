@@ -1,5 +1,15 @@
 (() => {
   "use strict";
+  const entry = document.querySelector("#entry-screen");
+  const enter = document.querySelector("#enter-site");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const unlockSite = () => {
+    entry.classList.add("is-leaving");
+    document.body.classList.remove("entry-locked");
+    window.setTimeout(() => entry.remove(), prefersReducedMotion.matches ? 0 : 720);
+  };
+  document.body.classList.add("entry-locked");
+  enter.addEventListener("click", unlockSite);
   const reasons = [
     "за твои карие глаза","за твою улыбку","за то, как ты смотришь на меня","за твою нежность","за твой смех","за то, что рядом спокойно","за твою заботу","за твою искренность","за твой голос","за твою красоту","за то, что ты умеешь удивлять","за твои объятия","за твою доброту","за наши разговоры","за то, как ты произносишь моё имя","за твой характер","за твои маленькие привычки","за твою смелость","за то, что ты вдохновляешь","за твоё тепло","за смешные сообщения","за твою поддержку","за наши секреты","за твою честность","за то, что с тобой можно быть собой","за твой стиль","за твою душу","за твои мечты","за твоё терпение","за твою внимательность","за то, как ты радуешься мелочам","за наши прогулки","за твой уют","за твою энергию","за то, что ты особенная","за твою уверенность","за наши воспоминания","за твои милые капризы","за то, что ты всегда настоящая","за твоё «доброе утро»","за твоё «спокойной ночи»","за то, что ты рядом","за твою нежную улыбку","за твои объятия после долгого дня","за то, как ты смеёшься над моими шутками","за твои истории","за наши общие планы","за твою заботу обо мне","за твою мягкость","за то, что рядом с тобой время летит","за твои фотографии","за твои рисунки","за твою любознательность","за то, как ты умеешь слушать","за твою непосредственность","за твой рост 165 см","за то, что тебя хочется обнимать","за твою улыбку глазами","за твою силу","за то, как ты веришь в меня","за наши маленькие традиции","за твои тёплые слова","за то, что ты умеешь сделать день лучше","за твою загадочность","за твой запах","за наши случайные совпадения","за то, как ты держишь меня за руку","за твою романтичность","за твои «люблю»","за то, как ты смотришься рядом со мной","за твой внутренний свет","за твою красоту без фильтров","за наши ночные разговоры","за то, что с тобой не бывает скучно","за твою верность","за твою нежную душу","за то, что ты умеешь прощать","за наши смешные моменты","за то, что ты мой человек","за твой взгляд","за твои тёплые ладони","за то, что ты умеешь поддержать молча","за твою улыбку в неожиданный момент","за нашу историю","за то, что ты делаешь меня счастливее","за твою красоту внутри","за каждую встречу","за каждое сообщение","за то, что тебя невозможно не любить","за то, что ты моя любимая","за всё, что между нами","за каждый поцелуй","за твоё большое сердце","за то, что ты есть","за сегодня","за завтра","за все будущие моменты","за то, что любовь с тобой настоящая","за каждое твоё «я рядом»","просто за тебя"
   ];
@@ -36,7 +46,7 @@
   };
   updateDays();
   const particles = document.querySelector(".particles");
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reduced = prefersReducedMotion;
   if (!reduced.matches) {
     window.setInterval(() => {
       const particle = document.createElement("span");
@@ -55,4 +65,24 @@
     if (entry.isIntersecting) links.forEach((link) => link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`));
   }), { rootMargin: "-25% 0px -65% 0px" });
   sections.forEach((section) => observer.observe(section));
+
+  const secretTrigger = document.querySelector("#secret-trigger");
+  const fireworks = document.querySelector("#number-fireworks");
+  secretTrigger.addEventListener("click", () => {
+    fireworks.replaceChildren();
+    const total = reduced.matches ? 18 : 42;
+    for (let index = 0; index < total; index += 1) {
+      const number = document.createElement("span");
+      number.className = "firework-number";
+      number.textContent = "67";
+      number.style.setProperty("--x", `${(Math.random() - 0.5) * 92}vw`);
+      number.style.setProperty("--y", `${-(35 + Math.random() * 52)}vh`);
+      number.style.setProperty("--r", `${(Math.random() - 0.5) * 70}deg`);
+      number.style.setProperty("--delay", `${Math.random() * 260}ms`);
+      fireworks.append(number);
+    }
+    fireworks.classList.remove("is-active");
+    requestAnimationFrame(() => fireworks.classList.add("is-active"));
+    window.setTimeout(() => fireworks.classList.remove("is-active"), reduced.matches ? 900 : 3000);
+  });
 })();

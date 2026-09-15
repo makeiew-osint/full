@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <section class="entry-screen" id="entry-screen" aria-labelledby="entry-title">
+      <div class="entry-orbit entry-orbit--one" aria-hidden="true"></div>
+      <div class="entry-orbit entry-orbit--two" aria-hidden="true"></div>
+      <div class="entry-model entry-model--one" aria-hidden="true"><span></span></div>
+      <div class="entry-model entry-model--two" aria-hidden="true"><span></span></div>
+      <div class="entry-content">
+        <span class="entry-kicker">только для тебя</span>
+        <h1 id="entry-title">мур</h1>
+        <button class="entry-button" id="enter-site" type="button" aria-label="Открыть сайт">♡</button>
+        <p>нажми, чтобы открыть</p>
+      </div>
+    </section>
     <div class="ambient ambient--one" aria-hidden="true"></div>
     <div class="ambient ambient--two" aria-hidden="true"></div>
     <div class="particles" aria-hidden="true"></div>
@@ -121,6 +133,8 @@
     </main>
 
     <footer class="site-footer">сделано с любовью, только для тебя · <span>♡</span></footer>
+    <button class="secret-trigger" id="secret-trigger" type="button" aria-label="Открыть маленький сюрприз">·</button>
+    <div class="number-fireworks" id="number-fireworks" aria-live="polite" aria-label="Фейерверк из чисел 67"></div>
     <script src="script.js"></script>
   </body>
 </html>
