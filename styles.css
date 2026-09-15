@@ -47,3 +47,29 @@ body:before{content:"";position:fixed;inset:0;z-index:-2;opacity:.28;pointer-eve
 .letter-paper{background:var(--paper);box-shadow:10px 12px 0 #3c2d2124;border:1px solid #3c2d211f}.paper-topline{border-color:#3a2a202b;color:#806d60}.letter-columns p,.letter-list li{color:#5e4d42}.letter-quote{border-color:#3a2a202b}.letter-quote small{color:#806d60}.gentle-note{border-color:#bd5d4570;background:#bd5d4514}.gentle-note h3{color:var(--ink)}.gentle-note p{color:#6b5145}.letter-final{background:var(--ink);color:var(--paper)}
 .site-footer{color:#806d60}
 @media(max-width:720px){.site-header{width:calc(100% - 34px);background:linear-gradient(#eee3d2 70%,transparent)}.hero{padding-top:68px}.quick-card{box-shadow:4px 5px 0 #bd5d4524}.hero-art__photo{box-shadow:6px 7px 0 #bd5d4540}.section-block{padding:88px 0}}
+
+/* Readability and narrow-phone pass */
+body{color:#2d2520}
+.hero-lead,.section-note,.story-copy>p,.letter p,.letter-columns p,.letter-list li,.gentle-note p{color:#4b3a31}
+.eyebrow,.story-date,.day-counter strong,h1 em,h2 em,h3 em,.letter-quote em{color:#a94736}
+.photo-strip figure,.gallery-card{color:#4b3a31;font-weight:600;text-shadow:0 1px #fffaf1}
+.photo-strip figcaption,.gallery-card figcaption{display:inline-block;margin-top:12px;padding:4px 8px;color:#3b2c25;background:#fffaf1e8;border:1px solid #3c2d2130;border-radius:2px;font-size:clamp(14px,1.4vw,17px);line-height:1.25}
+.section-note,.story-copy>p,.letter p,.letter-columns p,.letter-list li,.gentle-note p{font-size:15px}
+.reason-cover{color:#59463b}.reason-text{color:#2d2520}.progress-wrap{color:#59463b}.calendar-caption,.calendar-head div span,.weekdays,.story-copy>small{color:#665247}
+.main-nav{max-width:100%;overflow-x:auto;scrollbar-width:none}.main-nav::-webkit-scrollbar{display:none}
+@media(max-width:430px){
+  .site-header,.section-wrap{width:calc(100% - 24px)}
+  .site-header{padding:13px 0}
+  .brand{font-size:10px}.brand span{font-size:19px}
+  .main-nav{margin-top:4px;padding:3px;gap:1px}.nav-link{padding:8px 9px;font-size:9px}
+  .hero{padding-top:52px;padding-bottom:70px}.hero h1{font-size:clamp(52px,16vw,72px);line-height:.91;letter-spacing:-.06em}.hero-lead{margin-top:25px;font-size:15px;line-height:1.6}
+  .hero-art{min-height:290px;margin-top:36px}.hero-art__photo{width:min(190px,63vw);border-width:6px}.hero-art__heart{font-size:125px}.hero-art__ring--one{width:235px;height:145px}.hero-art__ring--two{width:285px;height:190px}.hero-art__note{font-size:11px}.hero-art__note--one{left:2%}.hero-art__note--two{right:0}
+  .quick-nav{padding-bottom:54px}.quick-card{min-height:100px;padding:18px}.quick-card strong{font-size:24px}.quick-card__index{margin-bottom:14px}
+  .section-block{padding:68px 0}.section-heading h2{font-size:clamp(43px,13vw,62px)}.section-note,.story-copy>p{font-size:14px}
+  .calendar-card{padding:20px 12px}.days{gap:2px}.days b,.days i,.days strong{min-height:33px;font-size:11px}.calendar-caption{font-size:9px}
+  .story-copy{margin-top:42px}.story-copy h3{font-size:43px}.day-counter strong{font-size:58px}
+  .photo-strip{gap:24px;margin-top:48px}.photo-strip figure,.gallery-card{font-size:14px}.photo-strip img{padding:5px}.photo-strip__wide img{aspect-ratio:1.35}
+  .gallery{grid-template-columns:1fr;gap:28px;margin-top:34px}.gallery-card,.gallery-card--tall,.gallery-card--offset,.gallery-card--wide{grid-column:auto;grid-row:auto;transform:none;margin-top:0}.gallery-card img,.gallery-card--tall img,.gallery-card--wide img{aspect-ratio:1.15;padding:5px}
+  .reason-grid{grid-template-columns:1fr 1fr;gap:7px}.reason-card{min-height:112px;padding:10px}.reason-cover,.reason-text{inset:36px 10px 8px}.reason-cover{font-size:15px}.reason-text{font-size:11px}
+  .letter-paper{padding:22px 15px}.paper-topline{font-size:7px}.letter-intro{grid-template-columns:34px 1fr;gap:9px;margin:34px auto 42px}.drop-cap{font-size:60px}.letter p{font-size:14px;line-height:1.65}.letter-quote{font-size:clamp(30px,9vw,43px)}.letter-columns{gap:12px;margin:38px auto}.letter-list h3{font-size:40px}.letter-list li{grid-template-columns:30px 1fr;font-size:14px}.gentle-note{margin:44px 0;padding:17px 13px}.gentle-note h3{font-size:20px}.letter-final{margin:0 -4px;padding:36px 12px}.letter-final strong{font-size:clamp(32px,10vw,48px)}
+}
