@@ -114,8 +114,8 @@
   const musicButton = document.querySelector("#music-button");
   musicButton.addEventListener("click", async () => {
     if (audio.error) {
-      musicButton.textContent = "mp3 пока нет";
-      musicButton.setAttribute("aria-label", "Песня пока не добавлена");
+      musicButton.textContent = "песня не загрузилась";
+      musicButton.setAttribute("aria-label", "Песня не загрузилась");
       return;
     }
     if (audio.paused) {
@@ -123,8 +123,8 @@
         await audio.play();
         musicButton.textContent = "Ⅱ пауза";
       } catch {
-        musicButton.textContent = "mp3 пока нет";
-        musicButton.setAttribute("aria-label", "Песня пока не добавлена");
+        musicButton.textContent = "песня не загрузилась";
+        musicButton.setAttribute("aria-label", "Песня не загрузилась");
       }
     } else {
       audio.pause();
