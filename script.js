@@ -100,4 +100,57 @@
       moodMessage.textContent = moodCopy[button.dataset.mood];
     });
   });
+
+  document.querySelectorAll(".envelope-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const open = button.getAttribute("aria-expanded") === "true";
+      button.setAttribute("aria-expanded", String(!open));
+      button.closest(".envelope").classList.toggle("is-open", !open);
+      button.querySelector("span").textContent = open ? "＋" : "−";
+    });
+  });
+
+  const audio = document.querySelector("#music-audio");
+  const musicButton = document.querySelector("#music-button");
+  musicButton.addEventListener("click", async () => {
+    if (audio.error) {
+      musicButton.textContent = "добавь mp3 в assets";
+      return;
+    }
+    if (audio.paused) {
+      try {
+        await audio.play();
+        musicButton.textContent = "Ⅱ пауза";
+      } catch {
+        musicButton.textContent = "не удалось включить";
+      }
+    } else {
+      audio.pause();
+      musicButton.textContent = "▶ включить";
+    }
+  });
+  audio.addEventListener("ended", () => { musicButton.textContent = "▶ включить"; });
+  document.querySelectorAll(".easter-egg").forEach((button) => {
+    button.addEventListener("click", () => {
+      button.classList.add("is-found");
+      button.setAttribute("aria-label", button.dataset.secret);
+      button.closest(".timeline-item").querySelector("p").textContent = button.dataset.secret;
+    });
+  });
+  const hugButton = document.querySelector("#hug-button");
+  const hugMessage = document.querySelector("#hug-message");
+  hugButton.addEventListener("click", () => {
+    hugMessage.textContent = "Иди сюда, я тебя обниму ♡";
+    hugMessage.classList.add("is-visible");
+    for (let index = 0; index < (reduced.matches ? 6 : 16); index += 1) {
+      const heart = document.createElement("span");
+      heart.className = "hug-heart";
+      heart.textContent = "♡";
+      heart.style.setProperty("--x", `${(Math.random() - .5) * 180}px`);
+      heart.style.setProperty("--delay", `${Math.random() * 180}ms`);
+      hugMessage.append(heart);
+      window.setTimeout(() => heart.remove(), 2200);
+    }
+    window.setTimeout(() => hugMessage.classList.remove("is-visible"), 2600);
+  });
 })();

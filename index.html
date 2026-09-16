@@ -110,6 +110,26 @@
         </div>
       </section>
 
+      <section class="timeline section-wrap section-block" id="timeline" aria-labelledby="timeline-title">
+        <div class="section-heading section-heading--split">
+          <div><p class="eyebrow"><span></span>наша линия</p><h2 id="timeline-title">Маленькие<br /><em>важные даты</em></h2></div>
+          <p class="section-note">Не идеальная хроника, а несколько точек, которые хочется держать рядом.</p>
+        </div>
+        <div class="timeline-list">
+          <article class="timeline-item"><time>05.07.2026</time><div><h3>Первый вечер</h3><p>День, с которого наше «мы» стало настоящим.</p></div><button class="easter-egg" type="button" data-secret="я рядом с тобой">♡</button></article>
+          <article class="timeline-item"><time>тогда</time><div><h3>Первая нормальная фотка)))</h3><p>Смешной, тёплый момент, который теперь хочется сохранять.</p></div><button class="easter-egg" type="button" data-secret="ты моё любимое чудо">♡</button></article>
+          <article class="timeline-item"><time>сейчас</time><div><h3>Каждый новый день</h3><p>Даже обычный день становится особенным, когда в нём есть ты.</p></div><button class="easter-egg" type="button" data-secret="ещё один день с тобой">♡</button></article>
+        </div>
+      </section>
+
+      <section class="music section-wrap section-block" aria-labelledby="music-title">
+        <div class="music-card">
+          <div><p class="eyebrow"><span></span>нажми, когда захочется</p><h2 id="music-title">Капсайз — <em>Урод</em></h2><p>Музыка включается только по твоему желанию, без автозапуска.</p></div>
+          <button class="music-button" id="music-button" type="button" aria-label="Включить песню">▶ включить</button>
+          <audio id="music-audio" preload="none" src="assets/kapsaiz-urod.mp3"></audio>
+        </div>
+      </section>
+
       <section class="reasons section-wrap section-block" id="reasons" aria-labelledby="reasons-title">
         <div class="section-heading section-heading--split">
           <div><p class="eyebrow"><span></span>маленькие признания</p><h2 id="reasons-title">100 причин<br /><em>любить тебя</em></h2></div>
@@ -117,6 +137,15 @@
         </div>
         <div class="reason-grid" id="reason-grid"></div>
         <div class="progress-wrap" aria-live="polite"><span><b id="opened-count">0</b> из 100 открыто</span><div class="progress-track"><i id="progress-bar"></i></div></div>
+      </section>
+
+      <section class="envelopes section-wrap section-block" aria-labelledby="envelopes-title">
+        <div class="section-heading"><p class="eyebrow"><span></span>открой по очереди</p><h2 id="envelopes-title">Три маленьких<br /><em>конверта</em></h2></div>
+        <div class="envelope-grid">
+          <article class="envelope"><button type="button" class="envelope-button" aria-expanded="false">За что я тебя люблю <span>＋</span></button><p>За твою доброту, смех, глаза и за то, что рядом с тобой можно быть собой.</p></article>
+          <article class="envelope"><button type="button" class="envelope-button" aria-expanded="false">Что я хочу сказать <span>＋</span></button><p>Ты не обязана быть идеальной. Мне дорога именно ты, живая, разная и настоящая.</p></article>
+          <article class="envelope"><button type="button" class="envelope-button" aria-expanded="false">Моё обещание тебе <span>＋</span></button><p>Слушать тебя, уважать твои границы и выбирать заботу даже в непростые дни.</p></article>
+        </div>
       </section>
 
       <section class="mood section-wrap section-block" id="mood" aria-labelledby="mood-title">
@@ -149,6 +178,8 @@
     <footer class="site-footer">сделано с любовью, только для тебя · <span>♡</span></footer>
     <button class="secret-trigger" id="secret-trigger" type="button" aria-label="Запустить фейерверк 67">67</button>
     <div class="number-fireworks" id="number-fireworks" aria-live="polite" aria-label="Фейерверк из чисел 67"></div>
+    <button class="hug-button" id="hug-button" type="button" aria-label="Обнять">♡ <span>обнять</span></button>
+    <div class="hug-message" id="hug-message" aria-live="polite"></div>
     <script src="script.js"></script>
   </body>
 </html>
