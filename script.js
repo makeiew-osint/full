@@ -85,4 +85,19 @@
     requestAnimationFrame(() => fireworks.classList.add("is-active"));
     window.setTimeout(() => fireworks.classList.remove("is-active"), reduced.matches ? 900 : 3000);
   });
+
+  const moodMessage = document.querySelector("#mood-message");
+  const moodCopy = {
+    hug: "Иди сюда. Обнимаю крепко-крепко и никуда не отпускаю.",
+    miss: "Я тоже скучаю. Скоро снова будем рядом.",
+    smile: "Улыбнись, пожалуйста. Твоя улыбка — моё любимое чудо.",
+    calm: "Дыши спокойно. Тебе не нужно всё успевать прямо сейчас."
+  };
+  document.querySelectorAll("[data-mood]").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll("[data-mood]").forEach((item) => item.classList.remove("is-selected"));
+      button.classList.add("is-selected");
+      moodMessage.textContent = moodCopy[button.dataset.mood];
+    });
+  });
 })();
