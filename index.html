@@ -30,6 +30,8 @@
       <nav class="main-nav" aria-label="Разделы сайта">
         <a class="nav-link is-active" href="#home">Главная</a>
         <a class="nav-link" href="#story">История</a>
+        <a class="nav-link" href="#timeline">Таймлайн</a>
+        <a class="nav-link" href="#music-title">Музыка</a>
         <a class="nav-link" href="#reasons">100 причин</a>
         <a class="nav-link" href="#letter">Письмо</a>
       </nav>
@@ -122,6 +124,18 @@
         </div>
       </section>
 
+      <section class="plans section-wrap section-block" id="plans" aria-labelledby="plans-title">
+        <div class="section-heading section-heading--split">
+          <div><p class="eyebrow"><span></span>то, что впереди</p><h2 id="plans-title">Наши<br /><em>маленькие планы</em></h2></div>
+          <p class="section-note">Не список обязательств, а несколько тёплых «когда-нибудь», которые хочется прожить вместе.</p>
+        </div>
+        <div class="plans-grid">
+          <article><span>01</span><h3>Сделать ещё тысячу фото</h3><p>Смешных, случайных и таких, которые хочется пересматривать.</p></article>
+          <article><span>02</span><h3>Устроить день только для нас</h3><p>Без спешки, с прогулкой, разговорами и чем-нибудь вкусным.</p></article>
+          <article><span>03</span><h3>Собрать новые воспоминания</h3><p>Чтобы этот архив рос вместе с нашей историей.</p></article>
+        </div>
+      </section>
+
       <section class="music section-wrap section-block" aria-labelledby="music-title">
         <div class="music-card">
           <div><p class="eyebrow"><span></span>нажми, когда захочется</p><h2 id="music-title">Капсайз — <em>Урод</em></h2><p>Песня включится по твоему желанию, без автозапуска. Для публикации нужен локальный mp3-файл.</p></div>
@@ -173,11 +187,28 @@
           <div class="letter-final"><small>если оставить только одну фразу</small><strong>Я ЛЮБЛЮ ТЕБЯ<br /><em>ОЧЕНЬ СИЛЬНО!</em></strong><p>Не за что-то отдельное. За то, какая ты. И за то, каким становлюсь я, когда мы вместе.</p><b>Твой Лёша <span>♡</span></b><a class="replay-link" href="#home">прочитать сначала ↑</a></div>
         </div>
       </section>
+      <section class="closing-screen section-wrap" id="closing-screen" aria-labelledby="closing-title">
+        <p class="eyebrow"><span></span>последняя страница</p>
+        <h2 id="closing-title">Иди сюда,<br /><em>я тебя обниму.</em></h2>
+        <p>Спасибо, что ты есть в моей истории. Это письмо можно открыть снова в любой день.</p>
+        <div class="closing-actions">
+          <button class="closing-hug" id="closing-hug" type="button">♡ Обнять Лёшу</button>
+          <a class="closing-replay" href="#home">Прочитать ещё раз ↑</a>
+        </div>
+        <div class="closing-hearts" aria-hidden="true"><span>♡</span><span>♡</span><span>♡</span></div>
+      </section>
     </main>
 
     <footer class="site-footer">сделано с любовью, только для тебя · <span>♡</span></footer>
     <button class="secret-trigger" id="secret-trigger" type="button" aria-label="Запустить фейерверк 67">67</button>
     <div class="number-fireworks" id="number-fireworks" aria-live="polite" aria-label="Фейерверк из чисел 67"></div>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фотографии" aria-hidden="true">
+      <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Закрыть фото">×</button>
+      <button class="lightbox-arrow lightbox-arrow--prev" id="lightbox-prev" type="button" aria-label="Предыдущее фото">‹</button>
+      <figure><img id="lightbox-image" src="assets/first-night.png" alt="" /><figcaption id="lightbox-caption"></figcaption></figure>
+      <button class="lightbox-arrow lightbox-arrow--next" id="lightbox-next" type="button" aria-label="Следующее фото">›</button>
+    </div>
     <button class="hug-button" id="hug-button" type="button" aria-label="Обнять">♡ <span>обнять</span></button>
     <div class="hug-message" id="hug-message" aria-live="polite"></div>
     <script src="script.js"></script>
