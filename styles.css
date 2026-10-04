@@ -127,12 +127,12 @@ body{color:#2d2520}
   .mood-actions{margin-top:27px}.mood-message,.comfort-message{font-size:18px}.comfort-actions{margin-top:25px}
   .letter-paper{padding:19px 13px}.paper-topline{font-size:7px;padding-bottom:16px}.letter-intro{grid-template-columns:30px 1fr;gap:8px;margin:30px auto 35px}.drop-cap{font-size:54px}.letter p,.letter-columns p,.letter-list li{font-size:13px;line-height:1.6}.letter-quote{font-size:29px;padding:23px 0}.letter-columns{margin:33px auto}.letter-list h3{font-size:38px;margin-bottom:25px}.gentle-note{margin:40px 0;padding:15px 12px}.gentle-note h3{font-size:19px}.gentle-note p{font-size:12px}.letter-final{padding:34px 11px}.letter-final strong{font-size:33px}.closing-screen{padding:43px 14px}.closing-screen h2{font-size:40px}
   .closing-hug,.closing-replay{font-size:11px;padding:13px 12px}
-  .letter-postscript{margin-top:22px;padding-top:16px;font-size:18px}
+  .last-words{margin-bottom:50px;padding:19px 10px;font-size:18px}
   .hug-button{right:10px;bottom:77px;padding:10px 12px}.hug-button span{font-size:10px}.secret-trigger{right:10px;bottom:129px;width:47px;height:32px;font-size:15px}.secret-heart{right:10px;bottom:178px;font-size:21px}.secret-message{right:8px;bottom:214px;font-size:15px}
   .lightbox{grid-template-columns:30px minmax(0,1fr) 30px;padding:16px 4px}.lightbox figure{width:calc(100vw - 68px)}.lightbox img{max-height:62vh}.lightbox-arrow{font-size:36px}.lightbox-close{top:5px;right:8px;font-size:28px}
 }
 @media(max-width:430px){.closing-screen{margin-bottom:55px;padding:52px 16px}.closing-screen h2{font-size:clamp(42px,13vw,61px)}.closing-actions{flex-direction:column;gap:12px}.closing-hug,.closing-replay{width:100%;text-align:center}.lightbox figure{width:calc(100vw - 80px)}.lightbox img{max-height:66vh}.photo-strip img,.gallery-card img{cursor:pointer}}
-.letter-postscript{margin:30px 0 0;padding-top:20px;border-top:1px solid #b48a5550;color:#a95745;text-align:center;font-family:var(--serif);font-size:clamp(18px,2vw,24px);font-style:italic;overflow-wrap:anywhere}
+.last-words{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:80px;padding:26px 18px;border-top:1px solid #b48a5550;border-bottom:1px solid #b48a5550;color:var(--coral);text-align:center;font-family:var(--serif);font-size:clamp(18px,2vw,24px);font-style:italic}.last-words>span{font-size:24px}
 @media(prefers-reduced-motion:reduce){.entry-screen.is-leaving{animation:none;opacity:0;visibility:hidden}.entry-model{animation:none}.firework-number{animation-duration:.7s}}
 
 /* New visual world: Наш день / intimate paper album */

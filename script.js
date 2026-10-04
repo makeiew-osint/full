@@ -118,14 +118,14 @@
 
     const savedComfort = document.querySelector("#comfort-message");
     const comfortCopy = {
-      letter: "Письмо ждёт тебя ниже. Читай только столько, сколько хочется.",
+      letter: "Моё короткое послание уже ждёт тебя ниже.",
       music: "Включи нашу песню и просто побудь в этом моменте.",
       hug: "Иди сюда. Я рядом и обнимаю тебя очень крепко."
     };
     document.querySelectorAll("[data-comfort]").forEach((button) => {
       button.addEventListener("click", () => {
         savedComfort.textContent = comfortCopy[button.dataset.comfort];
-        if (button.dataset.comfort === "letter") document.querySelector("#letter").scrollIntoView({ behavior: reduced.matches ? "auto" : "smooth" });
+        if (button.dataset.comfort === "letter") document.querySelector("#last-words").scrollIntoView({ behavior: reduced.matches ? "auto" : "smooth" });
         if (button.dataset.comfort === "music") document.querySelector("#music-button").click();
         if (button.dataset.comfort === "hug") document.querySelector("#hug-button").click();
       });
