@@ -3,12 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f3ecdf" />
+    <meta name="theme-color" content="#0c090b" />
     <meta name="description" content="Наш день — личный цифровой подарок для Яны." />
     <title>Наш день — в тебе люблю ♡</title>
-    <link rel="stylesheet" href="styles.css?v=mobile-controls-1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=cinematic-3d-1" />
+    <link rel="stylesheet" href="cinematic.css?v=1" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
-  <body>
+  <body class="cinematic-world">
     <section class="entry-screen" id="entry-screen" aria-labelledby="entry-title">
       <div class="entry-orbit entry-orbit--one" aria-hidden="true"></div>
       <div class="entry-orbit entry-orbit--two" aria-hidden="true"></div>
@@ -21,9 +33,13 @@
         <p>нажми, чтобы открыть</p>
       </div>
     </section>
+    <canvas class="world-canvas" id="world-canvas" aria-hidden="true"></canvas>
+    <div class="world-veil" aria-hidden="true"></div>
     <div class="ambient ambient--one" aria-hidden="true"></div>
     <div class="ambient ambient--two" aria-hidden="true"></div>
     <div class="particles" aria-hidden="true"></div>
+    <button class="fx-toggle" id="fx-toggle" type="button" aria-pressed="true">эффекты: кино</button>
+    <div class="scroll-cue" id="scroll-cue" aria-hidden="true"><span></span>листай</div>
 
     <header class="site-header">
       <a class="brand" href="#home" aria-label="В начало сайта"><span>♡</span> Наш день</a>
@@ -52,6 +68,7 @@
           </div>
         </div>
         <div class="hero-art" aria-label="Фотография вас двоих" role="img">
+          <div class="hero-art__stage" id="hero-stage" aria-hidden="true"></div>
           <div class="hero-art__photo"><img src="assets/together-02.png" alt="" /></div>
           <div class="hero-art__ring hero-art__ring--one"></div>
           <div class="hero-art__ring hero-art__ring--two"></div>
@@ -132,6 +149,20 @@
           <figure class="gallery-card"><img src="assets/new-moment-08.webp" alt="Ещё один совместный кадр от 2 октября 2026 года" loading="lazy" decoding="async" /><figcaption>2 октября · любимый момент</figcaption></figure>
           <figure class="gallery-card"><img src="assets/new-moment-09.webp" alt="Совместное фото, 2 октября 2026 года" loading="lazy" decoding="async" /><figcaption>2 октября · рядом</figcaption></figure>
           <figure class="gallery-card"><img src="assets/new-moment-10.webp" alt="Совместная фотография, 28 сентября 2026 года" loading="lazy" decoding="async" /><figcaption>28 сентября · только мы</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/together-03.png" alt="Совместная фотография" loading="lazy" decoding="async" /><figcaption>ещё один наш кадр</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-11.jpg" alt="Ночное близкое селфи" loading="lazy" decoding="async" /><figcaption>23 октября · ночной кадр</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-12.jpg" alt="Селфи вечером, лицо спрятано в худи" loading="lazy" decoding="async" /><figcaption>23 октября · прячусь</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-13.jpg" alt="Селфи днём, жест мира" loading="lazy" decoding="async" /><figcaption>21 октября · на свету</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-14.jpg" alt="Длинные волосы в руке вечером" loading="lazy" decoding="async" /><figcaption>17 октября · твои волосы</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-15.jpg" alt="Смешные гримасы на фоне неба" loading="lazy" decoding="async" /><figcaption>17 октября · гримасы</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-16.jpg" alt="Близкий кадр, голова на плече" loading="lazy" decoding="async" /><figcaption>17 октября · ближе</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-17.jpg" alt="Близкий кадр на фоне неба" loading="lazy" decoding="async" /><figcaption>17 октября · ещё ближе</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-18.jpg" alt="Голова на плече, крупные волосы" loading="lazy" decoding="async" /><figcaption>17 октября · плечо</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-19.jpg" alt="Грим на скамейке в парке" loading="lazy" decoding="async" /><figcaption>31 октября · хэллоуин</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-20.jpg" alt="Вид сверху на чёрную одежду и брусчатку" loading="lazy" decoding="async" /><figcaption>17 октября · просто рядом</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-21.jpg" alt="Селфи снизу на фоне голубого неба" loading="lazy" decoding="async" /><figcaption>17 октября · под небом</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-22.jpg" alt="Совместный хэллоуинский грим" loading="lazy" decoding="async" /><figcaption>31 октября · мы в гриме</figcaption></figure>
+          <figure class="gallery-card"><img src="assets/new-moment-23.jpg" alt="Скриншот с маской кота в шляпе" loading="lazy" decoding="async" /><figcaption>30 октября · забавное</figcaption></figure>
         </div>
       </section>
 
@@ -144,6 +175,7 @@
           <article class="timeline-item"><time>05.07.2026</time><div><h3>Первый вечер</h3><p>День, с которого наше «мы» стало настоящим.</p></div><button class="easter-egg" type="button" data-secret="я рядом с тобой">♡</button></article>
           <article class="timeline-item"><time>тогда</time><div><h3>Первая нормальная фотка)))</h3><p>Смешной, тёплый момент, который теперь хочется сохранять.</p></div><button class="easter-egg" type="button" data-secret="ты моё любимое чудо">♡</button></article>
           <article class="timeline-item"><time>сейчас</time><div><h3>Каждый новый день</h3><p>Даже обычный день становится особенным, когда в нём есть ты.</p></div><button class="easter-egg" type="button" data-secret="ещё один день с тобой">♡</button></article>
+          <article class="timeline-item"><time>17–31.10.2026</time><div><h3>Новые кадры</h3><p>Прогулки, небо, грим и все те фотографии, которые ты только что добавила в этот архив.</p></div><button class="easter-egg" type="button" data-secret="я храню каждый твой кадр">♡</button></article>
         </div>
       </section>
 
@@ -212,6 +244,7 @@
           <a class="closing-replay" href="#home">Вернуться в начало ↑</a>
         </div>
         <div class="closing-hearts" aria-hidden="true"><span>♡</span><span>♡</span><span>♡</span></div>
+        <p class="closing-finale" id="closing-finale">частицы собираются в сердце — останься ещё на мгновение</p>
       </section>
     </main>
 
@@ -230,5 +263,6 @@
     <button class="hug-button" id="hug-button" type="button" aria-label="Обнять">♡ <span>обнять</span></button>
     <div class="hug-message" id="hug-message" aria-live="polite"></div>
     <script src="script.js"></script>
+    <script type="module" src="cinematic.js"></script>
   </body>
 </html>
