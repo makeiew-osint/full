@@ -104,52 +104,64 @@
     });
   });
 
-  document.querySelectorAll(".envelope-button").forEach((button) => {
+  const envelopeButtons = [...document.querySelectorAll(".envelope-button")];
+  const savedEnvelopes = JSON.parse(localStorage.getItem("loveHubEnvelopes") || "[]");
+  envelopeButtons.forEach((button, index) => {
+    const isSavedOpen = savedEnvelopes.includes(index);
+    button.setAttribute("aria-expanded", String(isSavedOpen));
+    button.closest(".envelope").classList.toggle("is-open", isSavedOpen);
+    button.querySelector("span").textContent = isSavedOpen ? "−" : "＋";
     button.addEventListener("click", () => {
       const open = button.getAttribute("aria-expanded") === "true";
-      button.setAttribute("aria-expanded", String(!open));
-      button.closest(".envelope").classList.toggle("is-open", !open);
-      button.querySelector("span").textContent = open ? "＋" : "−";
-      const envelopeIndex = [...document.querySelectorAll(".envelope-button")].indexOf(button);
-      const savedEnvelopes = JSON.parse(localStorage.getItem("loveHubEnvelopes") || "[]");
-      if (open && !savedEnvelopes.includes(envelopeIndex)) savedEnvelopes.push(envelopeIndex);
-      localStorage.setItem("loveHubEnvelopes", JSON.stringify(savedEnvelopes));
+      const nextOpen = !open;
+      button.setAttribute("aria-expanded", String(nextOpen));
+      button.closest(".envelope").classList.toggle("is-open", nextOpen);
+      button.querySelector("span").textContent = nextOpen ? "−" : "＋";
+      const current = new Set(JSON.parse(localStorage.getItem("loveHubEnvelopes") || "[]"));
+      if (nextOpen) current.add(index);
+      else current.delete(index);
+      localStorage.setItem("loveHubEnvelopes", JSON.stringify([...current]));
     });
+  });
 
-    const savedComfort = document.querySelector("#comfort-message");
-    const comfortCopy = {
-      letter: "Моё короткое послание уже ждёт тебя ниже.",
-      music: "Включи нашу песню и просто побудь в этом моменте.",
-      hug: "Иди сюда. Я рядом и обнимаю тебя очень крепко."
+  const savedComfort = document.querySelector("#comfort-message");
+  const comfortCopy = {
+    letter: "Моё короткое послание уже ждёт тебя ниже.",
+    music: "Включи нашу песню и просто побудь в этом моменте.",
+    hug: "Иди сюда. Я рядом и обнимаю тебя очень крепко."
+  };
+  document.querySelectorAll("[data-comfort]").forEach((button) => {
+    button.addEventListener("click", () => {
+      savedComfort.textContent = comfortCopy[button.dataset.comfort];
+      if (button.dataset.comfort === "letter") {
+        document.querySelector("#last-words").scrollIntoView({ behavior: reduced.matches ? "auto" : "smooth" });
+      }
+      if (button.dataset.comfort === "music") document.querySelector("#music-button").click();
+      if (button.dataset.comfort === "hug") document.querySelector("#hug-button").click();
+    });
+  });
+
+  const secretHeart = document.querySelector("#secret-heart");
+  const secretMessage = document.querySelector("#secret-message");
+  secretHeart.addEventListener("click", () => {
+    secretMessage.classList.add("is-visible");
+    localStorage.setItem("loveHubSecretFound", "true");
+  });
+  if (localStorage.getItem("loveHubSecretFound") === "true") secretHeart.classList.add("is-found");
+
+  const memoryDate = document.querySelector("#memory-date");
+  document.querySelectorAll(".days b, .days strong").forEach((day) => {
+    day.tabIndex = 0;
+    const chooseDate = () => {
+      const date = day.textContent.replace("♡", "").trim();
+      memoryDate.textContent = `${date} июля — маленький момент, который хочется сохранить ♡`;
     };
-    document.querySelectorAll("[data-comfort]").forEach((button) => {
-      button.addEventListener("click", () => {
-        savedComfort.textContent = comfortCopy[button.dataset.comfort];
-        if (button.dataset.comfort === "letter") document.querySelector("#last-words").scrollIntoView({ behavior: reduced.matches ? "auto" : "smooth" });
-        if (button.dataset.comfort === "music") document.querySelector("#music-button").click();
-        if (button.dataset.comfort === "hug") document.querySelector("#hug-button").click();
-      });
-    });
-
-    const secretHeart = document.querySelector("#secret-heart");
-    const secretMessage = document.querySelector("#secret-message");
-    secretHeart.addEventListener("click", () => {
-      secretMessage.classList.add("is-visible");
-      localStorage.setItem("loveHubSecretFound", "true");
-    });
-    if (localStorage.getItem("loveHubSecretFound") === "true") secretHeart.classList.add("is-found");
-
-    const memoryDate = document.querySelector("#memory-date");
-    document.querySelectorAll(".days b, .days strong").forEach((day) => {
-      day.tabIndex = 0;
-      const chooseDate = () => {
-        const date = day.textContent.replace("♡", "").trim();
-        memoryDate.textContent = `${date} июля — маленький момент, который хочется сохранить ♡`;
-      };
-      day.addEventListener("click", chooseDate);
-      day.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); chooseDate(); }
-      });
+    day.addEventListener("click", chooseDate);
+    day.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        chooseDate();
+      }
     });
   });
 

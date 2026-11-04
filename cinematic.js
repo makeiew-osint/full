@@ -97,6 +97,7 @@ import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
     miniHearts: [],
     flowers: [],
     spheres: [],
+    floatingModels: [],
     envelopes: [],
     frames: [],
     petals: null,
@@ -401,6 +402,37 @@ import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
       state.spheres.push(sphere);
     }
 
+    // Extra sculptural 3D objects: glass planets, orbital rings and crystal forms.
+    const orbitMaterials = [
+      new THREE.MeshPhysicalMaterial({ color: 0xf5b5c8, metalness: 0.32, roughness: 0.16, clearcoat: 1, clearcoatRoughness: 0.04, iridescence: 0.8, iridescenceIOR: 1.35 }),
+      new THREE.MeshPhysicalMaterial({ color: 0xd8c4ff, metalness: 0.42, roughness: 0.2, clearcoat: 1, transmission: 0.28, thickness: 0.6 }),
+      new THREE.MeshPhysicalMaterial({ color: 0xffd8bd, metalness: 0.22, roughness: 0.12, clearcoat: 1, transmission: 0.38, thickness: 0.8 })
+    ];
+    const modelCount = quality === "cinema" ? 10 : 5;
+    for (let i = 0; i < modelCount; i += 1) {
+      const group = new THREE.Group();
+      const material = orbitMaterials[i % orbitMaterials.length];
+      if (i % 3 === 0) {
+        const planet = new THREE.Mesh(new THREE.SphereGeometry(0.22 + Math.random() * 0.13, 32, 24), material);
+        group.add(planet);
+        const ring = new THREE.Mesh(new THREE.TorusGeometry(0.36 + Math.random() * 0.08, 0.018, 12, 72), new THREE.MeshStandardMaterial({ color: 0xe9b8c5, metalness: 0.72, roughness: 0.22, emissive: 0x32101f, emissiveIntensity: 0.2 }));
+        ring.rotation.set(0.8 + Math.random() * 0.5, 0.2, 0.25);
+        group.add(ring);
+      } else if (i % 3 === 1) {
+        const crystal = new THREE.Mesh(new THREE.OctahedronGeometry(0.28 + Math.random() * 0.18, 1), material);
+        crystal.scale.set(0.8, 1.35, 0.8);
+        group.add(crystal);
+      } else {
+        const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(0.2, 0.055, 96, 12, 2, 3), material);
+        group.add(knot);
+      }
+      group.position.set(-4.1 + Math.random() * 8.2, -0.15 + Math.random() * 3.1, -2.8 + Math.random() * 2.8);
+      group.rotation.set(Math.random() * 1.2, Math.random() * Math.PI, Math.random() * 0.8);
+      group.scale.setScalar(0.72 + Math.random() * 0.72);
+      scene.add(group);
+      state.floatingModels.push(group);
+    }
+
     for (let i = 0; i < 3; i += 1) {
       const envelope = createEnvelope();
       envelope.position.set(-2.2 + i * 1.6, -0.35, -2.4);
@@ -543,6 +575,12 @@ import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
     state.spheres.forEach((sphere, index) => {
       sphere.position.y += Math.sin(t * 0.9 + index) * 0.0018;
       sphere.rotation.y = t * 0.15;
+    });
+    state.floatingModels.forEach((model, index) => {
+      model.position.y += Math.sin(t * 0.55 + index * 1.7) * 0.0022;
+      model.rotation.y += 0.0025 + index * 0.00015;
+      model.rotation.x = Math.sin(t * 0.32 + index) * 0.16 + state.mouse.y * 0.035;
+      model.rotation.z = Math.cos(t * 0.28 + index * 0.8) * 0.12 + state.mouse.x * 0.025;
     });
     state.envelopes.forEach((envelope, index) => {
       envelope.rotation.y = -0.2 + Math.sin(t * 0.35 + index) * 0.12 + p * 0.4;
