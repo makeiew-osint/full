@@ -44,7 +44,6 @@
     linear-gradient(180deg, rgba(12,9,11,.28) 0%, rgba(12,9,11,.08) 22%, rgba(12,9,11,.55) 100%);
 }
 .cinematic-world .ambient{ opacity:.16 !important; filter:blur(90px) !important; }
-.cinematic-world .site-header,
 .cinematic-world main,
 .cinematic-world .site-footer{
   position:relative;
