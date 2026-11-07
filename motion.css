@@ -1,0 +1,210 @@
+/* Site motion: entrance after unlock, section reveals, scroll direction */
+
+.cinematic-world{
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-soft: cubic-bezier(.22,1,.36,1);
+}
+
+body.is-unlocked .hero-copy > *,
+body.is-unlocked .hero-art{
+  animation: hero-rise 1.15s var(--ease-out) both;
+}
+body.is-unlocked .hero-copy .eyebrow{ animation-delay:.08s; }
+body.is-unlocked .hero-copy h1{ animation-delay:.18s; }
+body.is-unlocked .hero-copy .hero-lead{ animation-delay:.32s; }
+body.is-unlocked .hero-copy .hero-actions{ animation-delay:.44s; }
+body.is-unlocked .hero-art{ animation-delay:.28s; animation-name: hero-photo-in; }
+body.is-unlocked .site-header{
+  animation: header-drop .9s var(--ease-out) .15s both;
+}
+
+@keyframes hero-rise{
+  from{ opacity:0; transform:translate3d(0,36px,0) scale(.985); filter:blur(6px); }
+  to{ opacity:1; transform:none; filter:none; }
+}
+@keyframes hero-photo-in{
+  from{ opacity:0; transform:translate3d(40px,24px,0) rotate(8deg) scale(.92); filter:blur(8px); }
+  to{ opacity:1; transform:none; filter:none; }
+}
+@keyframes header-drop{
+  from{ opacity:0; transform:translateY(-18px); }
+  to{ opacity:1; transform:none; }
+}
+
+.js-reveal .reveal-item:not(.is-inview){
+  opacity:0;
+  transform:translate3d(0,48px,0) scale(.97);
+  filter:blur(8px);
+  transition:none;
+}
+.js-reveal .reveal-item.is-inview{
+  opacity:1;
+  transform:none;
+  filter:none;
+  transition:
+    opacity 1s var(--ease-soft),
+    transform 1s var(--ease-soft),
+    filter .9s ease;
+}
+.js-reveal .reveal-item.is-inview.from-below{
+  animation: rise-in .95s var(--ease-out) both;
+}
+.js-reveal .reveal-item.is-inview.from-above{
+  animation: fall-in .95s var(--ease-out) both;
+}
+.js-reveal .reveal-item.is-leaving-up{
+  opacity:0;
+  transform:translate3d(0,-28px,0) scale(.98);
+  filter:blur(4px);
+  transition:opacity .55s ease, transform .55s ease, filter .55s ease;
+}
+.js-reveal .reveal-item.is-leaving-down{
+  opacity:0;
+  transform:translate3d(0,28px,0) scale(.98);
+  filter:blur(4px);
+  transition:opacity .55s ease, transform .55s ease, filter .55s ease;
+}
+
+@keyframes rise-in{
+  from{ opacity:0; transform:translate3d(0,56px,0) scale(.96); filter:blur(10px); }
+  to{ opacity:1; transform:none; filter:none; }
+}
+@keyframes fall-in{
+  from{ opacity:0; transform:translate3d(0,-56px,0) scale(.96); filter:blur(10px); }
+  to{ opacity:1; transform:none; filter:none; }
+}
+
+.js-reveal .gallery-card.reveal-item:not(.is-inview),
+.js-reveal .photo-strip figure.reveal-item:not(.is-inview){
+  transform:translate3d(0,40px,0) scale(.94) rotate(.4deg);
+}
+.js-reveal .gallery-card.reveal-item.is-inview,
+.js-reveal .photo-strip figure.reveal-item.is-inview{
+  transition-delay:calc(var(--stagger, 0) * 70ms);
+}
+.js-reveal .timeline-item.reveal-item:not(.is-inview){
+  transform:translate3d(-28px,24px,0);
+}
+.js-reveal .envelope.reveal-item:not(.is-inview),
+.js-reveal .plans-grid article.reveal-item:not(.is-inview),
+.js-reveal .quick-card.reveal-item:not(.is-inview){
+  transform:translate3d(0,36px,0) scale(.95);
+}
+.js-reveal .quick-card.reveal-item.is-inview{
+  transition-delay:calc(var(--stagger, 0) * 90ms);
+}
+.js-reveal .section-heading .eyebrow,
+.js-reveal .section-heading h2,
+.js-reveal .section-heading .section-note{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .8s var(--ease-soft), transform .8s var(--ease-soft);
+}
+.js-reveal .section-block.is-inview .section-heading .eyebrow{
+  opacity:1; transform:none; transition-delay:.05s;
+}
+.js-reveal .section-block.is-inview .section-heading h2{
+  opacity:1; transform:none; transition-delay:.16s;
+}
+.js-reveal .section-block.is-inview .section-heading .section-note{
+  opacity:1; transform:none; transition-delay:.28s;
+}
+
+.parallax-layer{
+  will-change:transform;
+  transition:transform .12s linear;
+}
+.ambient.parallax-layer{ transition:transform .2s linear; }
+
+body.scroll-down .scroll-cue{ opacity:0; }
+body.scroll-up .site-header{
+  box-shadow:0 18px 40px rgba(0,0,0,.22);
+}
+
+.cinematic-world .hero-art__photo,
+.cinematic-world .gallery-card img,
+.cinematic-world .photo-strip img,
+.cinematic-world .quick-card,
+.cinematic-world .calendar-card,
+.cinematic-world .music-card,
+.cinematic-world .reason-card,
+.cinematic-world .envelope,
+.cinematic-world .plans-grid article{
+  transition:
+    transform .65s var(--ease-soft),
+    box-shadow .65s ease,
+    filter .65s ease,
+    background .35s ease,
+    border-color .35s ease;
+}
+.cinematic-world .gallery-card:hover img,
+.cinematic-world .photo-strip figure:hover img{
+  transform:translateY(-8px) scale(1.02);
+}
+.cinematic-world .quick-card:hover,
+.cinematic-world .plans-grid article:hover,
+.cinematic-world .envelope:hover{
+  transform:translateY(-8px);
+}
+.cinematic-world .reason-card:hover{
+  transform:translateY(-5px) scale(1.015);
+}
+.cinematic-world .hero-art__heart{
+  animation: soft-pulse 4.8s ease-in-out infinite;
+}
+@keyframes soft-pulse{
+  0%,100%{ transform:translateY(0) scale(1); opacity:.16; }
+  50%{ transform:translateY(-10px) scale(1.04); opacity:.24; }
+}
+
+.scroll-progress-glow{
+  position:fixed;
+  left:0;
+  top:0;
+  z-index:121;
+  width:100%;
+  height:3px;
+  pointer-events:none;
+  transform-origin:left center;
+  transform:scaleX(0);
+  background:linear-gradient(90deg, #e7c48a, #f0b3a4 55%, #e38b7a);
+  box-shadow:0 0 18px rgba(227,139,122,.45);
+}
+
+@media (max-width:720px){
+  .js-reveal .reveal-item:not(.is-inview){
+    transform:translate3d(0,28px,0);
+    filter:blur(4px);
+  }
+  @keyframes rise-in{
+    from{ opacity:0; transform:translate3d(0,32px,0); filter:blur(4px); }
+    to{ opacity:1; transform:none; filter:none; }
+  }
+  @keyframes fall-in{
+    from{ opacity:0; transform:translate3d(0,-32px,0); filter:blur(4px); }
+    to{ opacity:1; transform:none; filter:none; }
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  body.is-unlocked .hero-copy > *,
+  body.is-unlocked .hero-art,
+  body.is-unlocked .site-header,
+  .cinematic-world .hero-art__heart,
+  .js-reveal .reveal-item.is-inview.from-below,
+  .js-reveal .reveal-item.is-inview.from-above{
+    animation:none !important;
+  }
+  .js-reveal .reveal-item:not(.is-inview),
+  .js-reveal .reveal-item.is-leaving-up,
+  .js-reveal .reveal-item.is-leaving-down,
+  .js-reveal .section-heading .eyebrow,
+  .js-reveal .section-heading h2,
+  .js-reveal .section-heading .section-note{
+    opacity:1 !important;
+    transform:none !important;
+    filter:none !important;
+    transition:none !important;
+  }
+  .parallax-layer{ transform:none !important; }
+}

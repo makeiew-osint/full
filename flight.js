@@ -15,22 +15,33 @@
   const meter = document.querySelector("#voyage-meter");
   const tunnel = document.querySelector("#voyage-tunnel");
   const petals = document.querySelector("#voyage-petals");
+  const sparks = document.querySelector("#voyage-sparks");
 
   const heartSvg = `<svg viewBox="0 0 240 220" aria-hidden="true"><path d="M120 196C120 196 28 132 28 78C28 42 54 22 84 22C104 22 116 34 120 48C124 34 136 22 156 22C186 22 212 42 212 78C212 132 120 196 120 196Z"/></svg>`;
-  for (let i = 0; i < 16; i += 1) {
+  for (let i = 0; i < 18; i += 1) {
     const ring = document.createElement("span");
     ring.className = "tunnel-heart";
     ring.style.setProperty("--i", String(i));
     ring.innerHTML = heartSvg;
     tunnel.append(ring);
   }
-  for (let i = 0; i < 22; i += 1) {
+  for (let i = 0; i < 28; i += 1) {
     const petal = document.createElement("i");
-    petal.style.setProperty("--x", `${8 + Math.random() * 84}%`);
-    petal.style.setProperty("--d", `${Math.random() * 4}s`);
-    petal.style.setProperty("--s", `${0.6 + Math.random() * 0.9}`);
-    petal.style.setProperty("--r", `${Math.random() * 40 - 20}deg`);
+    petal.style.setProperty("--x", `${6 + Math.random() * 88}%`);
+    petal.style.setProperty("--d", `${Math.random() * 5}s`);
+    petal.style.setProperty("--s", `${0.55 + Math.random() * 1.05}`);
+    petal.style.setProperty("--r", `${Math.random() * 48 - 24}deg`);
     petals.append(petal);
+  }
+  if (sparks) {
+    for (let i = 0; i < 36; i += 1) {
+      const spark = document.createElement("span");
+      spark.style.setProperty("--x", `${Math.random() * 100}%`);
+      spark.style.setProperty("--y", `${Math.random() * 100}%`);
+      spark.style.setProperty("--d", `${Math.random() * 4.5}s`);
+      spark.style.setProperty("--s", `${0.4 + Math.random() * 1.4}`);
+      sparks.append(spark);
+    }
   }
 
   const scenes = [
@@ -54,16 +65,26 @@
     window.clearTimeout(captionTimer);
   };
 
+  const splitTitle = (text) => {
+    if (!text) return "";
+    return [...text].map((char, index) => {
+      const safe = char === " " ? "&nbsp;" : char;
+      return `<span style="--c:${index}">${safe}</span>`;
+    }).join("");
+  };
+
   const say = (scene) => {
     window.clearTimeout(captionTimer);
-    copy.classList.remove("is-in");
+    copy.classList.remove("is-in", "is-swap");
     captionTimer = window.setTimeout(() => {
       kicker.textContent = scene.kicker || "";
-      title.textContent = scene.title || "";
+      title.innerHTML = splitTitle(scene.title || "");
       line.textContent = scene.line || "";
       const hasText = Boolean(scene.kicker || scene.title || scene.line);
-      if (hasText) copy.classList.add("is-in");
-    }, reduced ? 0 : 220);
+      if (hasText) {
+        copy.classList.add("is-in", "is-swap");
+      }
+    }, reduced ? 0 : 180);
   };
 
   const go = (index) => {
@@ -71,7 +92,7 @@
     if (meter) meter.style.transform = `scaleX(${index / (scenes.length - 1)})`;
     const scene = scenes[index];
     if (scene.gate) {
-      copy.classList.remove("is-in");
+      copy.classList.remove("is-in", "is-swap");
       window.setTimeout(() => input?.focus(), reduced ? 0 : 700);
       return;
     }
@@ -86,7 +107,7 @@
       go(scenes.length - 1);
       return;
     }
-    const marks = [0, 900, 2800, 5200, 7600, 9400, 12800, 15400, 17200];
+    const marks = [0, 700, 2700, 5200, 7800, 9800, 13200, 15800, 17800];
     marks.forEach((at, index) => {
       if (index < from) return;
       timers.push(window.setTimeout(() => go(index), at - marks[from]));
@@ -96,16 +117,17 @@
   const unlock = () => {
     clearTimers();
     voyage.classList.add("is-opening");
-    for (let i = 0; i < 16; i += 1) {
+    for (let i = 0; i < 24; i += 1) {
       const bit = document.createElement("span");
       bit.className = "burst";
-      bit.textContent = "♡";
-      bit.style.setProperty("--a", `${(i / 16) * 360}deg`);
-      bit.style.setProperty("--r", `${90 + (i % 5) * 28}px`);
+      bit.textContent = i % 3 === 0 ? "✦" : "♡";
+      bit.style.setProperty("--a", `${(i / 24) * 360}deg`);
+      bit.style.setProperty("--r", `${70 + (i % 6) * 26}px`);
       voyage.append(bit);
     }
     document.body.classList.remove("entry-locked");
-    window.setTimeout(() => voyage.remove(), reduced ? 0 : 1100);
+    document.body.classList.add("is-unlocked");
+    window.setTimeout(() => voyage.remove(), reduced ? 0 : 1200);
   };
 
   const normalize = (value) => value.trim().toLowerCase().replace(/ё/g, "е").replace(/\s+/g, "");

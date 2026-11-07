@@ -277,24 +277,7 @@
   background:transparent;
   box-shadow:none;
 }
-.js-reveal .hero:not(.is-inview),
-.js-reveal .quick-nav:not(.is-inview),
-.js-reveal .section-block:not(.is-inview),
-.js-reveal .last-words:not(.is-inview),
-.js-reveal .closing-screen:not(.is-inview),
-.js-reveal .gallery-card:not(.is-inview),
-.js-reveal .photo-strip figure:not(.is-inview),
-.js-reveal .timeline-item:not(.is-inview),
-.js-reveal .plans-grid article:not(.is-inview),
-.js-reveal .envelope:not(.is-inview){
-  opacity:0;
-  transform:translateY(28px);
-}
-.js-reveal .is-inview{
-  opacity:1;
-  transform:none;
-  transition:opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
-}
+/* Reveal motion moved to motion.css */
 .lightbox{
   background:rgba(8,5,7,.92);
   backdrop-filter:blur(16px);
@@ -325,21 +308,6 @@
   .cinematic-world .site-header{ background:#f6eee6f0; }
 }
 @media (prefers-reduced-motion:reduce){
-  .js-reveal .hero:not(.is-inview),
-  .js-reveal .quick-nav:not(.is-inview),
-  .js-reveal .section-block:not(.is-inview),
-  .js-reveal .last-words:not(.is-inview),
-  .js-reveal .closing-screen:not(.is-inview),
-  .js-reveal .gallery-card:not(.is-inview),
-  .js-reveal .photo-strip figure:not(.is-inview),
-  .js-reveal .timeline-item:not(.is-inview),
-  .js-reveal .plans-grid article:not(.is-inview),
-  .js-reveal .envelope:not(.is-inview),
-  .js-reveal .is-inview{
-    opacity:1;
-    transform:none;
-    transition:none;
-  }
   .scroll-cue span,
   .hero-art__heart{ animation:none; }
 }
