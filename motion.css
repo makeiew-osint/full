@@ -8,18 +8,18 @@
 
 body.is-unlocked .hero-copy > *,
 body.is-unlocked .hero-art{
-  animation: hero-rise 1.25s var(--ease-out) both;
+  animation: hero-rise 1.9s var(--ease-out) both;
 }
-body.is-unlocked .hero-copy .eyebrow{ animation-delay:.1s; }
-body.is-unlocked .hero-copy h1{ animation-delay:.22s; }
-body.is-unlocked .hero-copy .hero-lead{ animation-delay:.38s; }
-body.is-unlocked .hero-copy .hero-actions{ animation-delay:.52s; }
-body.is-unlocked .hero-art{ animation-delay:.32s; animation-name: hero-photo-in; }
+body.is-unlocked .hero-copy .eyebrow{ animation-delay:.18s; }
+body.is-unlocked .hero-copy h1{ animation-delay:.38s; }
+body.is-unlocked .hero-copy .hero-lead{ animation-delay:.62s; }
+body.is-unlocked .hero-copy .hero-actions{ animation-delay:.86s; }
+body.is-unlocked .hero-art{ animation-delay:.52s; animation-name: hero-photo-in; }
 body.is-unlocked .site-header{
-  animation: header-drop 1s var(--ease-out) .12s both;
+  animation: header-drop 1.5s var(--ease-out) .2s both;
 }
 body.is-unlocked .scroll-cue{
-  animation: cue-fade 1.2s .9s both;
+  animation: cue-fade 1.8s 1.4s both;
 }
 
 @keyframes hero-rise{
@@ -54,36 +54,38 @@ body.is-unlocked .scroll-cue{
   transform:translate3d(0, calc(var(--scroll-shift, 0) * 1px), 0);
   filter:none;
   transition:
-    opacity 1.05s var(--ease-soft),
-    transform 1.05s var(--ease-soft),
-    filter .95s ease;
+    opacity 1.7s var(--ease-soft),
+    transform 1.7s var(--ease-soft),
+    filter 1.5s ease;
 }
 .js-reveal .reveal-item.is-inview.from-below{
-  animation: rise-in 1.05s var(--ease-out) both;
+  animation: rise-in 1.7s var(--ease-out) both;
 }
 .js-reveal .reveal-item.is-inview.from-above{
-  animation: fall-in 1.05s var(--ease-out) both;
+  animation: fall-in 1.7s var(--ease-out) both;
 }
 .js-reveal .reveal-item.is-leaving-up{
   opacity:0;
-  transform:translate3d(0,-36px,0) scale(.985);
-  filter:blur(6px);
-  transition:opacity .6s ease, transform .6s var(--ease-soft), filter .6s ease;
+  transform:translate3d(0,-42px,0) scale(.985);
+  filter:blur(8px);
+  transition:opacity .95s ease, transform .95s var(--ease-soft), filter .95s ease;
 }
 .js-reveal .reveal-item.is-leaving-down{
   opacity:0;
-  transform:translate3d(0,36px,0) scale(.985);
-  filter:blur(6px);
-  transition:opacity .6s ease, transform .6s var(--ease-soft), filter .6s ease;
+  transform:translate3d(0,42px,0) scale(.985);
+  filter:blur(8px);
+  transition:opacity .95s ease, transform .95s var(--ease-soft), filter .95s ease;
 }
 
 @keyframes rise-in{
-  from{ opacity:0; transform:translate3d(0,64px,0) scale(.95); filter:blur(12px); }
-  to{ opacity:1; transform:none; filter:none; }
+  0%{ opacity:0; transform:translate3d(0,72px,0) scale(.94); filter:blur(14px); }
+  55%{ opacity:1; filter:blur(2px); }
+  100%{ opacity:1; transform:none; filter:none; }
 }
 @keyframes fall-in{
-  from{ opacity:0; transform:translate3d(0,-64px,0) scale(.95); filter:blur(12px); }
-  to{ opacity:1; transform:none; filter:none; }
+  0%{ opacity:0; transform:translate3d(0,-72px,0) scale(.94); filter:blur(14px); }
+  55%{ opacity:1; filter:blur(2px); }
+  100%{ opacity:1; transform:none; filter:none; }
 }
 
 .js-reveal .gallery-card.reveal-item:not(.is-inview),
@@ -97,7 +99,8 @@ body.is-unlocked .scroll-cue{
 .js-reveal .plans-grid article.reveal-item.is-inview,
 .js-reveal .timeline-item.reveal-item.is-inview,
 .js-reveal .reason-card.reveal-item.is-inview{
-  transition-delay:calc(var(--stagger, 0) * 80ms);
+  transition-delay:calc(var(--stagger, 0) * 120ms);
+  animation-delay:calc(var(--stagger, 0) * 120ms);
 }
 .js-reveal .timeline-item.reveal-item:not(.is-inview){
   transform:translate3d(-36px,28px,0);
@@ -112,17 +115,17 @@ body.is-unlocked .scroll-cue{
 .js-reveal .section-heading h2,
 .js-reveal .section-heading .section-note{
   opacity:0;
-  transform:translateY(22px);
-  transition:opacity .9s var(--ease-soft), transform .9s var(--ease-soft);
+  transform:translateY(28px);
+  transition:opacity 1.4s var(--ease-soft), transform 1.4s var(--ease-soft);
 }
 .js-reveal .section-block.is-inview .section-heading .eyebrow{
-  opacity:1; transform:none; transition-delay:.05s;
+  opacity:1; transform:none; transition-delay:.1s;
 }
 .js-reveal .section-block.is-inview .section-heading h2{
-  opacity:1; transform:none; transition-delay:.18s;
+  opacity:1; transform:none; transition-delay:.32s;
 }
 .js-reveal .section-block.is-inview .section-heading .section-note{
-  opacity:1; transform:none; transition-delay:.32s;
+  opacity:1; transform:none; transition-delay:.55s;
 }
 
 .parallax-layer{
@@ -234,6 +237,12 @@ body.scroll-up .site-header{
   top:0 !important;
   margin-top:0 !important;
   border-radius:0 0 18px 18px !important;
+  border-top:0 !important;
+  background:rgba(16,9,13,.92) !important;
+}
+html, body, body.cinematic-world{
+  background:#10090d !important;
+  background-color:#10090d !important;
 }
 
 @media (max-width:720px){

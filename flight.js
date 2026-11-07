@@ -84,7 +84,7 @@
       if (hasText) {
         copy.classList.add("is-in", "is-swap");
       }
-    }, reduced ? 0 : 180);
+    }, reduced ? 0 : 320);
   };
 
   const go = (index) => {
@@ -93,7 +93,7 @@
     const scene = scenes[index];
     if (scene.gate) {
       copy.classList.remove("is-in", "is-swap");
-      window.setTimeout(() => input?.focus(), reduced ? 0 : 700);
+      window.setTimeout(() => input?.focus(), reduced ? 0 : 1100);
       return;
     }
     say(scene);
@@ -107,7 +107,7 @@
       go(scenes.length - 1);
       return;
     }
-    const marks = [0, 700, 2700, 5200, 7800, 9800, 13200, 15800, 17800];
+    const marks = [0, 1400, 4800, 9000, 13800, 17800, 23600, 28600, 32200];
     marks.forEach((at, index) => {
       if (index < from) return;
       timers.push(window.setTimeout(() => go(index), at - marks[from]));
@@ -127,7 +127,7 @@
     }
     document.body.classList.remove("entry-locked");
     document.body.classList.add("is-unlocked");
-    window.setTimeout(() => voyage.remove(), reduced ? 0 : 1200);
+    window.setTimeout(() => voyage.remove(), reduced ? 0 : 1800);
   };
 
   const normalize = (value) => value.trim().toLowerCase().replace(/ё/g, "е").replace(/\s+/g, "");

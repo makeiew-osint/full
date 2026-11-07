@@ -98,7 +98,7 @@
   opacity:0;
   transform:translate(-50%, -54%) scale(.16);
   filter:drop-shadow(0 0 28px rgba(227,139,122,.45));
-  transition:transform 1.45s cubic-bezier(.16,1,.3,1), opacity .75s ease, filter 1s ease;
+  transition:transform 2.2s cubic-bezier(.16,1,.3,1), opacity 1.1s ease, filter 1.4s ease;
 }
 .heart-fill{ fill:url(#heart-fill); opacity:0; }
 .heart-line{
@@ -125,7 +125,7 @@
   height:min(44vw, 270px);
   margin-left:calc(min(48vw, 300px) / -2);
   margin-top:calc(min(44vw, 270px) / -2);
-  animation:tunnel-rush 2.7s linear infinite;
+  animation:tunnel-rush 4.2s linear infinite;
   animation-delay:calc(var(--i) * -0.17s);
   animation-play-state:paused;
 }
@@ -146,7 +146,7 @@
   background:linear-gradient(160deg, #fff0ea, #e38b7a);
   opacity:.8;
   transform:rotate(var(--r)) scale(var(--s));
-  animation:petal-fall 6.5s linear infinite;
+  animation:petal-fall 9.5s linear infinite;
   animation-delay:var(--d);
 }
 .voyage-drift{ position:absolute; inset:0; opacity:0; }
@@ -175,7 +175,7 @@
   opacity:0;
   transform:translateY(18px) scale(.98);
   filter:blur(8px);
-  transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1), filter .7s ease;
+  transition:opacity 1.1s cubic-bezier(.16,1,.3,1), transform 1.1s cubic-bezier(.16,1,.3,1), filter 1.1s ease;
 }
 .voyage-copy.is-in{
   opacity:1;
@@ -185,18 +185,18 @@
 .voyage-copy h1 span{
   display:inline-block;
   opacity:0;
-  transform:translateY(22px) scale(.94);
-  filter:blur(6px);
+  transform:translateY(28px) scale(.92);
+  filter:blur(8px);
 }
 .voyage-copy.is-swap h1 span{
-  animation:letter-in .7s cubic-bezier(.16,1,.3,1) both;
-  animation-delay:calc(var(--c) * 45ms);
+  animation:letter-in 1.05s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:calc(var(--c) * 70ms);
 }
 .voyage-copy.is-swap .voyage-kicker{
-  animation:fade-soft .7s ease both;
+  animation:fade-soft 1s ease both;
 }
 .voyage-copy.is-swap .voyage-line{
-  animation:fade-soft .8s .18s ease both;
+  animation:fade-soft 1.15s .28s ease both;
 }
 .voyage-kicker,
 .gate-kicker{
@@ -331,7 +331,7 @@
   left:0;
   width:100%;
   height:2px;
-  background:rgba(255,255,255,.08);
+  background:transparent;
 }
 .voyage-meter i{
   display:block;
@@ -353,7 +353,7 @@
   animation:burst-out .95s ease-out forwards;
 }
 .voyage.is-opening{
-  animation:voyage-leave 1.05s cubic-bezier(.7,0,.2,1) forwards;
+  animation:voyage-leave 1.7s cubic-bezier(.7,0,.2,1) forwards;
   pointer-events:none;
 }
 
@@ -371,13 +371,13 @@
 .voyage[data-stage="3"] .voyage-sparks{ opacity:.9; }
 .voyage[data-stage="1"] .voyage-heart{ opacity:1; transform:translate(-50%, -54%) scale(.34); }
 .voyage[data-stage="2"] .voyage-heart{ opacity:1; transform:translate(-50%, -54%) scale(.78); filter:drop-shadow(0 0 42px rgba(227,139,122,.6)); }
-.voyage[data-stage="2"] .heart-line{ stroke-dashoffset:0; transition:stroke-dashoffset 1.1s ease; }
+.voyage[data-stage="2"] .heart-line{ stroke-dashoffset:0; transition:stroke-dashoffset 1.8s ease; }
 .voyage[data-stage="3"] .voyage-heart,
 .voyage[data-stage="3"] .heart-line{ opacity:1; }
-.voyage[data-stage="3"] .voyage-heart{ transform:translate(-50%, -54%) scale(1); animation:heart-breathe 2.2s ease-in-out infinite; }
-.voyage[data-stage="3"] .heart-line{ animation:heart-draw 1.7s cubic-bezier(.4,0,.2,1) forwards; }
-.voyage[data-stage="3"] .heart-fill{ animation:heart-fill 1.1s .85s ease forwards; }
-.voyage[data-stage="4"] .voyage-heart{ animation:heart-dive 1.75s cubic-bezier(.55,.05,.2,1) forwards; }
+.voyage[data-stage="3"] .voyage-heart{ transform:translate(-50%, -54%) scale(1); animation:heart-breathe 3.2s ease-in-out infinite; }
+.voyage[data-stage="3"] .heart-line{ animation:heart-draw 2.6s cubic-bezier(.4,0,.2,1) forwards; }
+.voyage[data-stage="3"] .heart-fill{ animation:heart-fill 1.6s 1.2s ease forwards; }
+.voyage[data-stage="4"] .voyage-heart{ animation:heart-dive 2.6s cubic-bezier(.55,.05,.2,1) forwards; }
 .voyage[data-stage="4"] .heart-line{ stroke-dashoffset:0; }
 .voyage[data-stage="4"] .heart-fill{ opacity:.88; }
 .voyage[data-stage="4"] .voyage-streaks,
@@ -395,7 +395,7 @@
 .voyage[data-stage="7"] .voyage-petals{ opacity:1; transition:opacity .6s ease; }
 .voyage[data-stage="5"] .voyage-sparks,
 .voyage[data-stage="6"] .voyage-sparks{ opacity:1; }
-.voyage[data-stage="6"] .tunnel-heart{ animation-duration:4.8s; }
+.voyage[data-stage="6"] .tunnel-heart{ animation-duration:7.2s; }
 .voyage[data-stage="6"] .voyage-heart{
   animation:heart-glow 2.4s ease-in-out infinite;
   opacity:.95;
@@ -406,14 +406,14 @@
 .voyage[data-stage="6"] .heart-fill{ opacity:.82; }
 .voyage[data-stage="7"] .voyage-tunnel,
 .voyage[data-stage="7"] .voyage-drift{ opacity:0; transition:opacity .5s ease; }
-.voyage[data-stage="7"] .voyage-bloom{ animation:bloom-out 1.55s ease-out forwards; }
+.voyage[data-stage="7"] .voyage-bloom{ animation:bloom-out 2.4s ease-out forwards; }
 .voyage[data-stage="7"] .voyage-sparks{ opacity:.35; }
 .voyage[data-stage="8"] .gate{
   opacity:1;
   visibility:visible;
   pointer-events:auto;
   transform:none;
-  animation:gate-arrive 1s cubic-bezier(.16,1,.3,1) both;
+  animation:gate-arrive 1.6s cubic-bezier(.16,1,.3,1) both;
 }
 .voyage[data-stage="8"] .voyage-copy,
 .voyage[data-stage="8"] .voyage-skip{ opacity:0; visibility:hidden; pointer-events:none; }
@@ -485,16 +485,18 @@
   50%{ opacity:1; transform:scale(1.35); }
 }
 @keyframes letter-in{
-  from{ opacity:0; transform:translateY(22px) scale(.94); filter:blur(6px); }
-  to{ opacity:1; transform:none; filter:none; }
+  0%{ opacity:0; transform:translateY(28px) scale(.9); filter:blur(10px); }
+  60%{ opacity:1; filter:blur(1px); }
+  100%{ opacity:1; transform:none; filter:none; }
 }
 @keyframes fade-soft{
-  from{ opacity:0; transform:translateY(10px); }
+  from{ opacity:0; transform:translateY(14px); }
   to{ opacity:1; transform:none; }
 }
 @keyframes gate-arrive{
-  from{ opacity:0; transform:translateY(28px) scale(.96); filter:blur(8px); }
-  to{ opacity:1; transform:none; filter:none; }
+  0%{ opacity:0; transform:translateY(36px) scale(.94); filter:blur(12px); }
+  60%{ opacity:1; filter:blur(2px); }
+  100%{ opacity:1; transform:none; filter:none; }
 }
 @media (max-width:640px){
   .voyage-skip{ right:14px; bottom:14px; }

@@ -50,7 +50,7 @@
   z-index:2;
 }
 .cinematic-world .site-header{
-  background:#f6eee6e6;
+  background:rgba(20,13,17,.78);
   border-color:#ffffff22;
   box-shadow:0 18px 40px #00000040;
 }
@@ -305,7 +305,7 @@
   .scroll-cue{ display:none; }
   .has-webgl .hero-art__heart{ opacity:.4; }
   .frame-3d img{ transform:none; }
-  .cinematic-world .site-header{ background:#f6eee6f0; }
+  .cinematic-world .site-header{ background:rgba(16,9,13,.94); }
 }
 @media (prefers-reduced-motion:reduce){
   .scroll-cue span,
