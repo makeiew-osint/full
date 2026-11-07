@@ -1,9 +1,15 @@
+html{
+  background:#10090d !important;
+}
+html, body.cinematic-world{
+  background-color:#10090d;
+}
 .cinematic-world{
   background:
     radial-gradient(980px 560px at 82% -8%, rgba(196,112,122,.34), transparent 56%),
     radial-gradient(720px 520px at -8% 36%, rgba(88,42,68,.42), transparent 52%),
     radial-gradient(860px 540px at 70% 110%, rgba(64,28,44,.55), transparent 48%),
-    #10090d;
+    #10090d !important;
 }
 .cinematic-world:before{
   content:"";

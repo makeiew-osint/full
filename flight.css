@@ -357,7 +357,15 @@
   pointer-events:none;
 }
 
-.voyage[data-stage="0"] .voyage-sparks{ opacity:.55; }
+.voyage[data-stage="0"] .voyage-sparks{ opacity:.7; }
+.voyage[data-stage="0"] .voyage-aurora{ opacity:.7; animation-duration:12s; }
+.voyage[data-stage="0"] .voyage-sky:before{
+  animation: soft-glow 2.8s ease-in-out infinite;
+}
+@keyframes soft-glow{
+  0%,100%{ filter:brightness(1); }
+  50%{ filter:brightness(1.18); }
+}
 .voyage[data-stage="1"] .voyage-sparks,
 .voyage[data-stage="2"] .voyage-sparks,
 .voyage[data-stage="3"] .voyage-sparks{ opacity:.9; }

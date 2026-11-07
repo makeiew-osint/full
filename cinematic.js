@@ -4,7 +4,6 @@
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   const body = document.body;
   const scrollCue = document.querySelector("#scroll-cue");
-  const progress = document.querySelector("#reading-progress");
 
   const glow = document.createElement("div");
   glow.className = "scroll-progress-glow";
@@ -24,16 +23,18 @@
     ".photo-strip figure",
     ".timeline-item",
     ".plans-grid article",
-    ".envelope"
+    ".envelope",
+    ".reason-card",
+    ".music-card",
+    ".calendar-card"
   ];
   const nodes = [...document.querySelectorAll(selectors.join(", "))];
-  nodes.forEach((node, index) => {
+  nodes.forEach((node) => {
     node.classList.add("reveal-item");
-    if (node.matches(".gallery-card, .quick-card, .photo-strip figure, .envelope, .plans-grid article, .timeline-item")) {
-      const siblings = [...node.parentElement.children].filter((child) => child.classList.contains("reveal-item"));
-      node.style.setProperty("--stagger", String(Math.max(0, siblings.indexOf(node))));
-    } else {
-      node.style.setProperty("--stagger", String(index % 5));
+    if (node.parentElement) {
+      const siblings = [...node.parentElement.children].filter((child) => child.matches(selectors.join(", ")));
+      const index = siblings.indexOf(node);
+      if (index >= 0) node.style.setProperty("--stagger", String(index % 8));
     }
   });
 
@@ -46,37 +47,45 @@
   let ticking = false;
 
   const setProgress = () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const value = max > 0 ? window.scrollY / max : 0;
-    const scale = `scaleX(${value})`;
-    glow.style.transform = scale;
-    if (progress) progress.style.transform = scale;
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    glow.style.transform = `scaleX(${window.scrollY / max})`;
   };
 
   const applyParallax = () => {
     if (reduced.matches) return;
     const y = window.scrollY;
     document.querySelectorAll(".ambient--one").forEach((node) => {
-      node.style.transform = `translate3d(0, ${y * 0.08}px, 0)`;
+      node.style.transform = `translate3d(${y * -0.02}px, ${y * 0.1}px, 0)`;
     });
     document.querySelectorAll(".ambient--two").forEach((node) => {
-      node.style.transform = `translate3d(0, ${y * -0.05}px, 0)`;
+      node.style.transform = `translate3d(${y * 0.015}px, ${y * -0.06}px, 0)`;
     });
     const heroArt = document.querySelector(".hero-art.parallax-layer");
     const heroCopy = document.querySelector(".hero-copy.parallax-layer");
-    if (heroArt) heroArt.style.transform = `translate3d(0, ${Math.min(y, 520) * 0.06}px, 0)`;
-    if (heroCopy) heroCopy.style.transform = `translate3d(0, ${Math.min(y, 520) * 0.03}px, 0)`;
+    const clamped = Math.min(y, 640);
+    if (heroArt) heroArt.style.transform = `translate3d(0, ${clamped * 0.075}px, 0)`;
+    if (heroCopy) heroCopy.style.transform = `translate3d(0, ${clamped * 0.035}px, 0)`;
+
+    nodes.forEach((node) => {
+      if (!node.classList.contains("is-inview")) return;
+      if (node.matches(".hero, .quick-nav, .section-block, .last-words, .closing-screen")) {
+        const rect = node.getBoundingClientRect();
+        const mid = rect.top + rect.height * 0.35 - window.innerHeight * 0.45;
+        const shift = Math.max(-18, Math.min(18, mid * -0.04));
+        node.style.setProperty("--scroll-shift", shift.toFixed(2));
+      }
+    });
   };
 
   const onScroll = () => {
     const y = window.scrollY;
-    if (Math.abs(y - lastY) > 4) {
+    if (Math.abs(y - lastY) > 3) {
       direction = y > lastY ? "down" : "up";
       body.classList.toggle("scroll-down", direction === "down");
       body.classList.toggle("scroll-up", direction === "up");
       lastY = y;
     }
-    if (scrollCue) scrollCue.classList.toggle("is-hidden", y > 80);
+    if (scrollCue) scrollCue.classList.toggle("is-hidden", y > 70);
     setProgress();
     if (!ticking) {
       ticking = true;
@@ -93,15 +102,16 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const node = entry.target;
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.08) {
           node.classList.remove("is-leaving-up", "is-leaving-down", "from-above", "from-below");
           node.classList.add("is-inview", direction === "down" ? "from-below" : "from-above");
-        } else {
+        } else if (!entry.isIntersecting) {
           node.classList.remove("is-inview", "from-above", "from-below");
           node.classList.add(direction === "down" ? "is-leaving-up" : "is-leaving-down");
+          node.style.removeProperty("--scroll-shift");
         }
       });
-    }, { threshold: 0.14, rootMargin: "0px 0px -10% 0px" });
+    }, { threshold: [0, 0.1, 0.2, 0.35], rootMargin: "0px 0px -8% 0px" });
     nodes.forEach((node) => io.observe(node));
   }
 
