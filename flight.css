@@ -306,10 +306,10 @@
   text-underline-offset:4px;
 }
 .gate.is-wrong input{ animation:gate-shake .48s ease; }
+.voyage-sound,
 .voyage-skip{
   position:absolute;
   z-index:5;
-  right:22px;
   bottom:22px;
   padding:10px 14px;
   border:1px solid rgba(255,255,255,.18);
@@ -322,8 +322,13 @@
   cursor:pointer;
   backdrop-filter:blur(10px);
 }
+.voyage-sound{ left:22px; }
+.voyage-skip{ right:22px; }
+.voyage-sound:hover,
+.voyage-sound:focus-visible,
 .voyage-skip:hover,
 .voyage-skip:focus-visible{ border-color:#f0b3a4; color:#fff; }
+.voyage-sound[aria-pressed="false"]{ color:#c9b0a8; border-color:rgba(255,255,255,.12); }
 .voyage-meter{
   position:absolute;
   z-index:5;
@@ -417,6 +422,7 @@
 }
 .voyage[data-stage="8"] .voyage-copy,
 .voyage[data-stage="8"] .voyage-skip{ opacity:0; visibility:hidden; pointer-events:none; }
+.voyage[data-stage="8"] .voyage-sound{ bottom:22px; }
 .voyage[data-stage="8"] .voyage-heart{ opacity:0; }
 .voyage[data-stage="8"] .voyage-bloom{
   animation:none;
@@ -500,6 +506,7 @@
 }
 @media (max-width:640px){
   .voyage-skip{ right:14px; bottom:14px; }
+  .voyage-sound{ left:14px; bottom:14px; }
   .gate h2{ font-size:92px; }
   .voyage-drift span:nth-child(5),
   .voyage-drift span:nth-child(6){ display:none; }

@@ -16,6 +16,123 @@
   const tunnel = document.querySelector("#voyage-tunnel");
   const petals = document.querySelector("#voyage-petals");
   const sparks = document.querySelector("#voyage-sparks");
+  const soundButton = document.querySelector("#voyage-sound");
+
+  const soundscape = (() => {
+    const STORAGE_KEY = "loveHubEntranceSound";
+    let ctx = null;
+    let master = null;
+    let padGain = null;
+    let beatTimer = 0;
+    let enabled = localStorage.getItem(STORAGE_KEY) !== "off";
+    let started = false;
+    let fading = false;
+
+    const syncButton = () => {
+      if (!soundButton) return;
+      soundButton.setAttribute("aria-pressed", String(enabled));
+      soundButton.textContent = enabled ? "звук: тихо" : "звук: выкл";
+      soundButton.title = enabled ? "Выключить звук" : "Включить звук";
+    };
+
+    const thump = (time, freq, peak, duration) => {
+      if (!ctx || !master) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, time);
+      osc.frequency.exponentialRampToValueAtTime(Math.max(28, freq * 0.45), time + duration);
+      gain.gain.setValueAtTime(0.0001, time);
+      gain.gain.exponentialRampToValueAtTime(peak, time + 0.018);
+      gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
+      osc.connect(gain);
+      gain.connect(master);
+      osc.start(time);
+      osc.stop(time + duration + 0.02);
+    };
+
+    const scheduleBeat = () => {
+      if (!ctx || !enabled || fading) return;
+      const now = ctx.currentTime;
+      thump(now, 62, 0.055, 0.22);
+      thump(now + 0.2, 48, 0.032, 0.28);
+      beatTimer = window.setTimeout(scheduleBeat, 1180);
+    };
+
+    const buildPad = () => {
+      if (!ctx || !master) return;
+      padGain = ctx.createGain();
+      padGain.gain.value = 0.012;
+      padGain.connect(master);
+      [58, 87, 116].forEach((freq, index) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = index === 2 ? "triangle" : "sine";
+        osc.frequency.value = freq;
+        gain.gain.value = index === 0 ? 0.55 : 0.28;
+        osc.connect(gain);
+        gain.connect(padGain);
+        osc.start();
+      });
+    };
+
+    const start = async () => {
+      if (started || !enabled) return false;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return false;
+        ctx = new AudioCtx();
+        master = ctx.createGain();
+        master.gain.value = 0.0001;
+        master.connect(ctx.destination);
+        if (ctx.state === "suspended") await ctx.resume();
+        buildPad();
+        master.gain.linearRampToValueAtTime(0.9, ctx.currentTime + 2.4);
+        started = true;
+        scheduleBeat();
+        syncButton();
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    const setEnabled = (next) => {
+      enabled = next;
+      localStorage.setItem(STORAGE_KEY, enabled ? "on" : "off");
+      if (!enabled) {
+        window.clearTimeout(beatTimer);
+        if (ctx && master) {
+          const now = ctx.currentTime;
+          master.gain.cancelScheduledValues(now);
+          master.gain.linearRampToValueAtTime(0.0001, now + 0.35);
+        }
+      } else if (started && ctx && master) {
+        ctx.resume();
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.linearRampToValueAtTime(0.9, ctx.currentTime + 0.6);
+        scheduleBeat();
+      } else {
+        start();
+      }
+      syncButton();
+    };
+
+    const fadeOut = () => {
+      fading = true;
+      window.clearTimeout(beatTimer);
+      if (!ctx || !master) return;
+      const now = ctx.currentTime;
+      master.gain.cancelScheduledValues(now);
+      master.gain.linearRampToValueAtTime(0.0001, now + 1.4);
+      window.setTimeout(() => {
+        try { ctx.suspend(); } catch {}
+      }, 1500);
+    };
+
+    syncButton();
+    return { start, setEnabled, isEnabled: () => enabled, fadeOut, syncButton };
+  })();
 
   const heartSvg = `<svg viewBox="0 0 240 220" aria-hidden="true"><path d="M120 196C120 196 28 132 28 78C28 42 54 22 84 22C104 22 116 34 120 48C124 34 136 22 156 22C186 22 212 42 212 78C212 132 120 196 120 196Z"/></svg>`;
   for (let i = 0; i < 18; i += 1) {
@@ -116,6 +233,7 @@
 
   const unlock = () => {
     clearTimers();
+    soundscape.fadeOut();
     voyage.classList.add("is-opening");
     for (let i = 0; i < 24; i += 1) {
       const bit = document.createElement("span");
@@ -157,7 +275,20 @@
     error.textContent = "";
     if (reduced) return;
     play(0);
+    if (soundscape.isEnabled()) soundscape.start();
   });
+
+  soundButton?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    soundscape.setEnabled(!soundscape.isEnabled());
+  });
+
+  const armSound = () => {
+    if (soundscape.isEnabled()) soundscape.start();
+  };
+  voyage.addEventListener("pointerdown", armSound, { once: true });
+  voyage.addEventListener("keydown", armSound, { once: true });
+  window.setTimeout(armSound, 400);
 
   play(0);
 })();
